@@ -1,0 +1,91 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile with display info and reflection stats",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Unique user ID" },
+        "email": { "type": "string", "description": "User email" },
+        "displayName": { "type": "string", "description": "User display name" },
+        "photoURL": { "type": "string", "description": "Avatar URL" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation ISO date string" },
+        "lastLoginAt": { "type": "string", "format": "date-time", "description": "Last login ISO date string" },
+        "streakCount": { "type": "number", "description": "Consecutive days reflective streak" },
+        "totalJournals": { "type": "number", "description": "Total reflections created" }
+      },
+      "required": ["uid", "createdAt", "lastLoginAt"]
+    },
+    "Journal": {
+      "title": "Journal",
+      "description": "Personal journal reflection session document",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Journal ID" },
+        "userId": { "type": "string", "description": "Owner user ID" },
+        "title": { "type": "string", "description": "Reflection title" },
+        "summary": { "type": "string", "description": "Concise summary" },
+        "mood": { "type": "string", "description": "Primary emotion / mood" },
+        "topics": { "type": "array", "description": "List of topic tags" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Last updated timestamp" },
+        "messageCount": { "type": "number", "description": "Number of messages in the reflection" },
+        "lastMessagePreview": { "type": "string", "description": "Preview snippet of last message" },
+        "keyInsight": { "type": "string", "description": "Key takeaways or action points" }
+      },
+      "required": ["id", "userId", "title", "createdAt", "updatedAt"]
+    },
+    "JournalMessage": {
+      "title": "JournalMessage",
+      "description": "Individual conversational turn in a reflection",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Message ID" },
+        "journalId": { "type": "string", "description": "Parent journal ID" },
+        "role": { "type": "string", "enum": ["user", "assistant"], "description": "Sender role" },
+        "content": { "type": "string", "description": "Message text" },
+        "timestamp": { "type": "string", "format": "date-time", "description": "Message ISO timestamp" },
+        "actionType": { "type": "string", "description": "Special action trigger used if any" }
+      },
+      "required": ["id", "journalId", "role", "content", "timestamp"]
+    },
+    "ReflectionEvolution": {
+      "title": "ReflectionEvolution",
+      "description": "Comparative mindset analysis over time",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Evolution record ID" },
+        "userId": { "type": "string", "description": "Owner user ID" },
+        "timestamp": { "type": "string", "format": "date-time", "description": "Generation timestamp" },
+        "comparedJournalIds": { "type": "array", "description": "IDs of journals compared" },
+        "theme": { "type": "string", "description": "Growth theme" },
+        "earlierSummary": { "type": "string", "description": "Earlier state summary" },
+        "earlierQuote": { "type": "string", "description": "Representative earlier quote" },
+        "recentSummary": { "type": "string", "description": "Recent state summary" },
+        "recentQuote": { "type": "string", "description": "Representative recent quote" },
+        "shiftSummary": { "type": "string", "description": "Shift description" },
+        "geminiObservation": { "type": "string", "description": "AI observation" },
+        "followUpPrompts": { "type": "array", "description": "Recommended reflection prompts" }
+      },
+      "required": ["id", "userId", "timestamp", "theme", "shiftSummary"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "User profile with streak and settings"
+    },
+    "/users/{userId}/journals/{journalId}": {
+      "schema": { "$ref": "#/entities/Journal" },
+      "description": "Personal journal documents"
+    },
+    "/users/{userId}/journals/{journalId}/messages/{messageId}": {
+      "schema": { "$ref": "#/entities/JournalMessage" },
+      "description": "Conversation messages within a journal"
+    },
+    "/users/{userId}/evolutions/{evolutionId}": {
+      "schema": { "$ref": "#/entities/ReflectionEvolution" },
+      "description": "Saved reflection evolution insights"
+    }
+  }
+}
