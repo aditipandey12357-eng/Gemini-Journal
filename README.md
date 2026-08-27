@@ -30,7 +30,7 @@ A secure, production-grade personal reflection companion and mindset evolution p
 
 ## 💡 Project Overview & Philosophy
 
-Traditional journals capture static notes, while generic AI chatbots offer fragmented, forgetful conversations. **Personal Gemini Journal** bridges this gap by creating an **encrypted, user-isolated reflection sanctuary** where thoughts turn into long-term personal clarity.
+Traditional journals capture static notes, while generic AI chatbots offer fragmented, forgetful conversations. **Personal Gemini Journal** bridges this gap by creating an **private, user-isolated reflection sanctuary** where thoughts turn into long-term personal clarity.
 
 The core philosophy is grounded in three pillars:
 - 🌿 **Think Freely**: Express raw, unedited thoughts in a private, distraction-free interface backed by strict per-user database isolation.
