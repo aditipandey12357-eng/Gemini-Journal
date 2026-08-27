@@ -1,0 +1,8 @@
+{
+  "name": "Remix Personal Gemini Journal",
+  "description": "A secure AI-powered personal reflection companion with Google Authentication, Firestore user isolation, multi-turn Gemini conversations, and Reflection Evolution.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
