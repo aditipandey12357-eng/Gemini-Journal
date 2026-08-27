@@ -192,7 +192,22 @@ flowchart TD
 
 ### 4. Reflection Evolution Engine Flow
 
-```mermaid
+sequenceDiagram
+    autonumber
+    actor User as User (Browser)
+    participant Client as Client (React App)
+    participant DB as Cloud Firestore
+    participant Server as Server (Express Backend)
+    participant Gemini as Google Gemini AI Cloud
+
+    User->>Client: Navigates to "Evolution" tab
+    Client->>DB: Fetch historical journals & messages
+    DB-->>Client: Returns historical dataset
+    Client->>Server: POST /api/gemini/evolution { historicalData, currentPerspective }
+    Server->>Gemini: Comparative evaluation prompt (System Instruction: Mindset Shift Analysis)
+    Gemini-->>Server: Returns JSON comparative synthesis & tracking metrics
+    Server-->>Client: Returns evolution analysis payload
+    Client-->>User: Renders mindset shift graph, evolution logs, and growth markers
 flowchart LR
     subgraph DataCollection ["1. Historical Data Ingestion"]
         UserJournals[(Cloud Firestore\n/users/{uid}/journals)] --> SortChronological[Sort Journals by Date]
