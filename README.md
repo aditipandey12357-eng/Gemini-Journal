@@ -57,7 +57,16 @@ The core philosophy is grounded in three pillars:
 
 ### 1. System Architecture Flow
 
-```mermaid
+```text
+[Client / Browser (React 19)]
+  │
+  ├─> (HTTPS / Firebase Auth JWT) ─────────> [Google Firebase Cloud Platform]
+  │                                           ├─> Firebase Auth (Authentication Provider)
+  │                                           └─> Cloud Firestore (Database: /users/{userId}/journals/{journalId})
+  │
+  └─> (HTTPS POST /api/gemini/chat) ─────────> [Secure Backend (Node.js + Express)]
+                                              ├─> Rate Limiting / Guardrails
+                                              └─> Google GenAI SDK (Calls Gemini 2.5 Flash / 3.7 Flash)
 flowchart TB
     subgraph Client ["Client Layer (React 19 + Tailwind CSS)"]
         UI[Single Page App UI]
